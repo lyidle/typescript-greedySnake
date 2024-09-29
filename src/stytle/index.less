@@ -1,0 +1,122 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// 主盒子和游戏界面 圆角
+@main-radius: 20px;
+@stage-radius: 10px;
+// 主盒子
+@main-bg-color: white;
+@main-width: 300px;
+@main-height: 350px;
+
+// 游戏界面
+@stage-width: calc(@main-width - 45px);
+
+// snake food
+@snack-food-width: 10px;
+
+body {
+  background-color: skyblue;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gamePanel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  @margin: 10px;
+  & > .footer >div{
+    padding: 5px 15px;
+    border-radius: 10px;
+    margin-left: @margin;
+    cursor: pointer;
+    color: #1f87d1;
+    background-color: #ffffff;
+    box-shadow: inset 0 0 20px 1px rgb(223, 247, 255),
+      -2px 2px 5px 1px rgb(79, 174, 211);
+    transition: transform 0.3s;
+    &:hover:not([class^='setSpeed']) {
+      transform: translate(1.5px, 0.51px);
+    }
+    & {
+      margin-bottom: @margin;
+    }
+  }
+}
+
+.main {
+  width: @main-width;
+  height: @main-height;
+  background-color: @main-bg-color;
+  display: flex;
+  justify-content: center;
+  align-content: space-around;
+  flex-wrap: wrap;
+  border-radius: @main-radius;
+  box-shadow: -5px 5px 30px 5px rgb(79, 174, 211);
+}
+
+.stage {
+  width: @stage-width;
+  height: @stage-width;
+  border: 10px solid #bce3ff;
+  border-radius: @stage-radius;
+  // overflow: hidden;
+  // padding: 1px;
+  position: relative;
+  box-sizing: content-box;
+
+  .snake {
+    & > div {
+      width: @snack-food-width;
+      height: @snack-food-width;
+      background-color: rgb(179, 13, 225);
+      border-radius: 30%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+    }
+    & > div:not(:first-child) {
+      background-color: rgb(211, 158, 225);
+      z-index: 1;
+    }
+  }
+
+  & > .food {
+    width: @snack-food-width;
+    height: @snack-food-width;
+    border: 1px solid @main-bg-color;
+    position: absolute;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-content: space-between;
+    left: 20px;
+    opacity: 0;
+
+    & > div {
+      width: calc(@snack-food-width / 2 - 1px);
+      height: calc(@snack-food-width / 2 - 1px);
+      background-color: red;
+      border-radius: 50%;
+      transform: rotate(45deg);
+    }
+  }
+}
+
+.score-panel {
+  display: flex;
+  width: @stage-width;
+  justify-content: space-between;
+  font: bold 20px "Courier";
+  color: rgb(23, 127, 202);
+}
